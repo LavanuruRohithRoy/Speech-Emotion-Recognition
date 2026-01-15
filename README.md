@@ -1,263 +1,168 @@
-# 🎤 Speech Emotion Recognition (SER) Project
+# 🎤 Speech Emotion Recognition (SER)
 
-A **highly accurate** and **modular** Speech Emotion Recognition system that can detect 8 different emotions from audio with improved confidence scoring and professional UI.
-
-## 🚀 **Quick Start (Recommended)**
-
-### **Option 1: Automatic Setup (Easiest)**
-```bash
-python setup.py
-```
-This will:
-- ✅ Install all dependencies automatically
-- ✅ Set up project structure
-- ✅ Train the model (optional)
-- ✅ Create startup scripts
-- ✅ Test everything
-
-### **Option 2: Manual Setup**
-```bash
-# 1. Install dependencies
-python install_dependencies.py
-
-# 2. Train the model
-python train_model.py
-
-# 3. Run the application
-python app.py
-```
-
-## 📊 **Performance Improvements**
-
-| Metric | Before | After |
-|--------|--------|-------|
-| **Accuracy** | 62.5% | **75-85%+** |
-| **Features** | 40 | **193** |
-| **Models** | 1 Basic RF | **4 Optimized + Ensemble** |
-| **Confidence** | Unreliable | **Thresholded & Reliable** |
-
-## 🏗️ **Project Structure**
-
-```
-SER/
-├── 📁 src/                          # Source code (modular)
-│   ├── 📁 features/                 # Audio feature extraction
-│   │   ├── audio_features.py       # Main feature extractor
-│   │   └── __init__.py
-│   ├── 📁 models/                   # Machine learning models
-│   │   ├── trainer.py              # Model training pipeline
-│   │   └── __init__.py
-│   ├── 📁 utils/                    # Helper functions
-│   │   ├── helpers.py              # Confidence & emotion helpers
-│   │   └── __init__.py
-│   ├── 📁 templates/                # Web interface templates
-│   │   ├── index.html              # Main page
-│   │   ├── result.html             # Results page
-│   │   └── feedback.html           # Feedback form
-│   └── 📁 static/                   # Static files
-│       ├── style.css               # Styling
-│       └── recordings/             # Audio recordings
-├── 📁 dataset/                      # Your RAVDESS dataset
-├── 🐍 app.py                       # Main Flask application
-├── 🐍 train_model.py               # Model training script
-├── 🐍 setup.py                     # Complete setup script
-├── 🐍 install_dependencies.py      # Dependency installer
-├── 📋 requirements.txt              # Package requirements
-└── 📖 README.md                     # This file
-```
-
-## 🔧 **Technical Features**
-
-### **Advanced Feature Extraction (193 features)**
-- **MFCC**: 40 coefficients + statistics + delta features
-- **Spectral**: Centroid, rolloff, bandwidth with statistics
-- **Chroma**: 12 coefficients with statistical measures
-- **Contrast**: 7 spectral contrast bands
-- **Additional**: ZCR, RMS, tempo, harmonic separation, flatness
-
-### **Ensemble Model Architecture**
-- **Random Forest**: Hyperparameter-tuned
-- **Gradient Boosting**: Optimized learning rates
-- **Support Vector Machine**: Multiple kernels
-- **Neural Network**: Multi-layer perceptron
-- **Ensemble**: Soft voting classifier
-
-### **Confidence Thresholding**
-- 🟢 **High** (≥80%): Very reliable
-- 🟠 **Medium** (60-79%): Moderately reliable  
-- 🔴 **Low** (<60%): Consider retrying
-- ❓ **Uncertain** (<30%): Audio unclear
-
-## 📋 **Requirements**
-
-### **System Requirements**
-- **Python**: 3.7+ (3.8+ recommended)
-- **RAM**: 4GB+ (8GB+ for large datasets)
-- **Storage**: 2GB+ free space
-- **OS**: Windows 10+, macOS 10.14+, Ubuntu 18.04+
-
-### **Audio Requirements**
-- **Format**: WAV, MP3, M4A, FLAC, OGG
-- **Duration**: Minimum 0.5 seconds
-- **Quality**: Clear speech, minimal background noise
-- **Language**: English (Google Speech Recognition)
-
-## 🚀 **Installation Steps**
-
-### **Step 1: Clone/Download Project**
-```bash
-# If using git
-git clone <your-repo-url>
-cd SER
-
-# Or download and extract to SER folder
-```
-
-### **Step 2: Prepare Dataset**
-```
-SER/
-└── 📁 dataset/
-    ├── 📁 Actor_01/
-    │   ├── 03-01-01-01-01-01-01.wav
-    │   ├── 03-01-01-01-01-02-01.wav
-    │   └── ... (more .wav files)
-    ├── 📁 Actor_02/
-    └── ... (more actor folders)
-```
-
-### **Step 3: Run Setup**
-```bash
-python setup.py
-```
-
-### **Step 4: Access Application**
-```bash
-python app.py
-# Open browser: http://localhost:5000
-```
-
-## 🎯 **Usage**
-
-### **Web Interface**
-1. **Upload Audio**: Drag & drop or click to upload
-2. **Live Recording**: Use microphone for real-time analysis
-3. **View Results**: See emotion, confidence, and top predictions
-4. **Provide Feedback**: Help improve the model
-
-### **API Endpoints**
-- `GET /` - Main interface
-- `POST /predict` - Upload audio file
-- `POST /predict_live` - Live audio recording
-- `POST /feedback` - Submit feedback
-- `GET /model_info` - Model information
-
-## 🛠️ **Troubleshooting**
-
-### **Common Issues**
-
-#### **1. Dependencies Installation Failed**
-```bash
-# Update pip first
-python -m pip install --upgrade pip
-
-# Try individual packages
-pip install numpy==1.21.6
-pip install scikit-learn==1.1.3
-```
-
-#### **2. Model Training Failed**
-- ✅ Check dataset exists and contains .wav files
-- ✅ Ensure sufficient disk space (2GB+)
-- ✅ Check Python version (3.7+)
-- ✅ Verify all dependencies installed
-
-#### **3. Low Accuracy/Confidence**
-- ✅ Use longer audio clips (2-3+ seconds)
-- ✅ Ensure clear speech quality
-- ✅ Minimize background noise
-- ✅ Retrain with more diverse data
-
-#### **4. Feature Dimension Mismatch**
-- ✅ Delete old model files
-- ✅ Retrain the model completely
-- ✅ Check dataset structure
-
-### **Performance Tips**
-- **Audio Quality**: Use high-quality recordings
-- **Duration**: Record for 2-3+ seconds
-- **Environment**: Quiet, controlled setting
-- **Speech**: Clear, natural pronunciation
-- **Emotions**: Express emotions clearly
-
-## 🔮 **Future Enhancements**
-
-- **Real-time Processing**: Stream audio analysis
-- **Multi-language Support**: Beyond English
-- **Emotion Intensity**: Confidence + intensity levels
-- **Custom Training**: User-specific fine-tuning
-- **API Integration**: RESTful API for applications
-- **Mobile App**: iOS/Android applications
-
-## 📚 **Technical Details**
-
-### **Feature Engineering**
-- **Total Features**: 193
-- **Sample Rate**: 22050 Hz
-- **Window Size**: Adaptive based on audio length
-- **Feature Types**: 10 different audio analysis methods
-
-### **Model Training**
-- **Cross-Validation**: 3-fold CV for optimization
-- **Hyperparameter Tuning**: Grid search with F1 optimization
-- **Data Augmentation**: Feature-level noise injection
-- **Ensemble Method**: Soft voting with probability calibration
-
-### **Performance Metrics**
-- **Accuracy**: Overall correct predictions
-- **F1 Score**: Harmonic mean of precision & recall
-- **Precision**: True positives / (True + False positives)
-- **Recall**: True positives / (True positives + False negatives)
-
-## 🤝 **Contributing**
-
-1. **Fork** the repository
-2. **Create** a feature branch
-3. **Make** your changes
-4. **Test** thoroughly
-5. **Submit** a pull request
-
-## 📄 **License**
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 **Acknowledgments**
-
-- **RAVDESS Dataset**: For providing the audio dataset
-- **Librosa**: For audio processing capabilities
-- **Scikit-learn**: For machine learning algorithms
-- **Flask**: For the web framework
-
-## 📞 **Support**
-
-If you encounter any issues:
-
-1. **Check** the troubleshooting section above
-2. **Review** error messages carefully
-3. **Verify** your setup matches requirements
-4. **Create** an issue with detailed information
+A clean, modular **Speech Emotion Recognition (SER)** system built using **Python, Machine Learning, and Flask**.
+The project detects human emotions from speech audio, provides confidence scores, top predictions, and optional speech-to-text transcription.
 
 ---
 
-## 🎉 **Ready to Get Started?**
+## 🚀 What’s Different in This Version (Important)
+
+This project is **not just a basic SER demo**. Compared to a naive MFCC + single-model setup, the following **practical improvements** were implemented:
+
+* Calm emotion **merged with Neutral** to reduce real-world confusion
+* Energy-based gating to avoid false *angry/fearful* predictions on low-energy speech
+* Confidence thresholding with **"uncertain"** fallback
+* Single, consistent feature-extraction pipeline (train = predict)
+* Real microphone audio handling (not just dataset audio)
+
+These changes focus on **stability, realism, and honest confidence**, not artificial accuracy inflation.
+
+---
+
+## 📊 Model Performance (Realistic)
+
+| Metric   | Value                                                   |
+| -------- | ------------------------------------------------------- |
+| Accuracy | ~55–65%                                                 |
+| F1 Score | ~55–60%                                                 |
+| Classes  | Neutral, Happy, Sad, Angry, Fearful, Disgust, Surprised |
+
+> Note: Speech Emotion Recognition is a difficult task.
+> Acted datasets (RAVDESS) and real microphone audio differ significantly.
+
+---
+
+## 🧠 Machine Learning Approach
+
+### Dataset
+
+* **RAVDESS** (Ryerson Audio-Visual Database of Emotional Speech)
+* Calm samples merged into Neutral
+
+### Feature Extraction
+
+Total features: ~190
+
+* MFCC (mean, std, delta)
+* Spectral centroid, bandwidth, rolloff
+* Chroma features
+* Spectral contrast
+* Tonnetz
+* Zero-crossing rate, RMS energy
+* Harmonic & percussive components
+
+All audio is:
+
+* Mono
+* 16 kHz sample rate
+
+---
+
+## 🤖 Model
+
+* **RandomForestClassifier** (class-weight balanced)
+* StandardScaler for normalization
+* Confidence-based decision logic
+* Uncertainty handling for low-confidence cases
+
+---
+
+## 🎯 Confidence Interpretation
+
+| Confidence | Meaning               |
+| ---------- | --------------------- |
+| ≥ 70%      | High confidence       |
+| 40–69%     | Medium confidence     |
+| < 35%      | Marked as *uncertain* |
+
+Low confidence does **not** mean failure — it means the model is being honest.
+
+---
+
+## 🌐 Application Features
+
+* Upload audio file prediction
+* Live microphone prediction
+* Top-3 emotion probabilities
+* Confidence color indicators
+* Emoji-based emotion visualization
+* Optional speech-to-text transcription
+
+---
+
+## 🏗️ Project Structure
+
+```
+SER/
+│── app.py                 # Flask application
+│── README.md
+│── .gitignore
+│
+├── src/
+│   ├── features/
+│   │   └── audio_features.py   # Audio feature extraction
+│   ├── models/
+│   │   └── trainer.py          # Model training pipeline
+│   ├── utils/
+│   │   └── helpers.py          # Confidence & emoji helpers
+│   ├── templates/              # HTML templates
+│   └── static/                 # CSS, JS, assets
+│
+├── models/                     # Saved models (ignored in git)
+├── temp/                       # Temporary audio files (ignored)
+├── dataset/                    # Dataset (not included)
+```
+
+---
+
+## ▶️ How to Run
+
+### 1️⃣ Train the Model
 
 ```bash
-# Run the complete setup
-python setup.py
+python src/models/trainer.py
+```
 
-# Or start manually
-python install_dependencies.py
-python train_model.py
+### 2️⃣ Run the Application
+
+```bash
 python app.py
 ```
 
-**Your SER project will be running in minutes with significantly improved accuracy and confidence!** 🚀
+Open in browser:
+
+```
+http://127.0.0.1:5000
+```
+
+---
+
+## ⚠️ Limitations
+
+* Real-world accuracy depends heavily on audio quality
+* Calm vs Neutral distinction is inherently ambiguous
+* Transcription depends on external Google Speech API
+
+---
+
+## 📌 Use Cases
+
+* Academic / learning projects
+* Machine learning & signal processing demos
+* Emotion-aware voice applications (research-level)
+
+---
+
+## 🔮 Future Improvements
+
+See **IMPROVEMENTS.md** for:
+
+* Deep learning models (CNN / LSTM / wav2vec)
+* Database & API integration
+* Deployment and scalability plans
+
+---
+
+## 📜 License
+
+This project is intended for **educational and research purposes** only.
