@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You for Your Feedback!</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #43e97b 0%, #ff7eb3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+        }
+        .feedback-card {
+            background: rgba(255,255,255,0.15);
+            border-radius: 28px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.17);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            max-width: 400px;
+            animation: popIn 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.85) rotate(-2deg); opacity: 0; }
+            80% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .emoji {
+            font-size: 3rem;
+            animation: float 2.5s infinite ease-in-out;
+            margin-bottom: 0.5em;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .back-btn {
+            margin-top: 2em;
+            background: linear-gradient(90deg, #ff758c 0%, #ff7eb3 100%);
+            color: #fff;
+            border: none;
+            padding: 0.8em 2em;
+            border-radius: 30px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 8px #0002;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .back-btn:hover {
+            transform: scale(1.07);
+            box-shadow: 0 4px 16px #43e97b;
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-card">
+        <div class="emoji">🙏</div>
+        <h2 style="color:#ffeb3b;">Thank You!</h2>
+        <p style="font-size:1.15em;color:#fff;">
+            Your feedback helps us make Speech Emotion Recognition more accurate and empathetic.<br>
+            We appreciate your time and support!
+        </p>
+        <form action="/">
+            <button type="submit" class="back-btn">Go Back Home</button>
+        </form>
+    </div>
+</body>
+</html>

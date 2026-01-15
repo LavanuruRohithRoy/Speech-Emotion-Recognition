@@ -1,0 +1,16 @@
+{
+  "accuracy": 61.81,
+  "f1": 59.23,
+  "precision": 60.58,
+  "recall": 61.81,
+  "classes": [
+    "angry",
+    "disgust",
+    "fearful",
+    "happy",
+    "neutral",
+    "sad",
+    "surprised"
+  ],
+  "features": 184
+}

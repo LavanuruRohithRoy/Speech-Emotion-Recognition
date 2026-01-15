@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emotion Prediction Result</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #884280 0%, #50264c 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .glass-card {
+            animation: fadeSlideIn 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+            background: rgba(255,255,255,0.10);
+            border-radius: 32px;
+            border: 4px solid;
+            border-image: linear-gradient(135deg, #ff758c 0%, #ff7eb3 50%, #43e97b 100%) 1;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37), 0 0 0 8px rgba(255,255,255,0.05) inset;
+            backdrop-filter: blur(16px);
+            padding: 2.5rem 2rem 2rem 2rem;
+            margin: 2.5rem auto;
+            width: 95%;
+            max-width: 520px;
+            text-align: center;
+            overflow: visible;
+        }
+        @keyframes fadeSlideIn {
+            0% { opacity: 0; transform: translateY(40px) scale(0.95); }
+            80% { opacity: 1; transform: translateY(-8px) scale(1.03); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        .emoji {
+            font-size: 4rem;
+            animation: float 2.5s infinite ease-in-out;
+            margin-bottom: 0.5em;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        .confidence-score {
+            font-size: 1.2em;
+            margin-bottom: 1em;
+            font-weight: bold;
+            padding: 0.5em 1em;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .empathetic-message {
+            margin: 1em 0;
+            font-size: 1.1em;
+            font-style: italic;
+            color: #fff;
+        }
+        .emotion-label {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #ffe082;
+            margin-bottom: 0.5em;
+            text-transform: capitalize;
+        }
+        .top-predictions {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5em;
+            margin: 1.5em 0;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .prediction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.5em 0;
+            padding: 0.5em;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+        }
+        .prediction-emoji {
+            font-size: 1.5em;
+            margin-right: 0.5em;
+        }
+        .prediction-text {
+            flex: 1;
+            text-align: left;
+            color: #fff;
+        }
+        .prediction-confidence {
+            font-weight: bold;
+            color: #43e97b;
+        }
+        .confidence-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin: 0.5em 0;
+            overflow: hidden;
+        }
+        .confidence-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease-in-out;
+        }
+        .transcript {
+            background: rgba(255,255,255,0.1);
+            padding: 1em;
+            border-radius: 12px;
+            margin: 1em 0;
+            color: #fff;
+            font-size: 0.95em;
+        }
+        .metrics-section {
+            margin-top: 2em;
+            padding: 1.5em;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+        }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1em;
+            margin: 1em 0;
+        }
+        .metric-item {
+            text-align: center;
+            padding: 0.5em;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+        .metric-value {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #43e97b;
+        }
+        .metric-label {
+            font-size: 0.9em;
+            color: #ccc;
+            margin-top: 0.2em;
+        }
+        button {
+            background: linear-gradient(135deg, #ff7eb3, #43e97b);
+            color: white;
+            border: none;
+            padding: 0.8em 1.5em;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 0.5em;
+        }
+        button:hover {
+            transform: translateY(-2px);
+        }
+        .try-again {
+            background: linear-gradient(135deg, #43e97b, #38f9d7);
+        }
+        .feedback-form {
+            margin-top: 2em;
+            padding: 1.5em;
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+        }
+        .feedback-form label {
+            display: block;
+            margin: 0.5em 0;
+            color: #fff;
+        }
+        .feedback-form select,
+        .feedback-form textarea {
+            width: 100%;
+            padding: 0.5em;
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 8px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            margin-bottom: 1em;
+        }
+        .feedback-form textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+    </style>
+</head>
+<body>
+<div class="glass-card">
+    <h1 style="color: #ffe082; margin-bottom: 1.5em;">Emotion Prediction Result</h1>
+    
+    <!-- Main Emotion Display -->
+    <div class="emoji">{{ emotion_emoji|default('❓') }}</div>
+    <div class="emotion-label">{{ emotion|replace("_", " ")|title }}</div>
+    
+    <!-- Confidence Score with Color -->
+    <div class="confidence-score" style="background-color: {{ confidence_color|default('#666') }}; color: white;">
+        <strong>Confidence:</strong> {{ confidence|default(0)|float }}%
+    </div>
+    
+    <!-- Confidence Bar -->
+    <div class="confidence-bar">
+        <div class="confidence-fill" style="width: {{ confidence|default(0)|float }}%; background-color: {{ confidence_color|default('#666') }};"></div>
+    </div>
+    
+    <!-- Top 3 Predictions -->
+    {% if top_predictions %}
+    <div class="top-predictions">
+        <h3 style="color: #ffe082; margin-bottom: 1em;">Top Predictions</h3>
+        {% for pred in top_predictions %}
+        <div class="prediction-item">
+            <span class="prediction-emoji">{{ pred.emoji }}</span>
+            <span class="prediction-text">{{ pred.emotion|title }}</span>
+            <span class="prediction-confidence">{{ pred.confidence }}%</span>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Empathetic Message -->
+    <div class="empathetic-message">
+        {% if emotion == "happy" %}
+            <span style="color:#43e97b;">You sound happy! Keep smiling 😊</span>
+        {% elif emotion == "sad" %}
+            <span style="color:#ff7eb3;">You sound a bit sad. Remember, it's okay to feel this way 💜</span>
+        {% elif emotion == "angry" %}
+            <span style="color:#ff758c;">I hear the frustration in your voice. Take a moment to breathe 🌬️</span>
+        {% elif emotion == "fearful" %}
+            <span style="color:#ffd54f;">It's natural to feel afraid. You're not alone 💛</span>
+        {% elif emotion == "surprised" %}
+            <span style="color:#43e97b;">Wow! You sound surprised! 😲</span>
+        {% elif emotion == "disgust" %}
+            <span style="color:#ff9800;">I sense some strong feelings there. It's okay to feel that way 🧡</span>
+        {% elif emotion == "calm" %}
+            <span style="color:#4caf50;">You sound very calm and peaceful 🌿</span>
+        {% elif emotion == "neutral" %}
+            <span style="color:#9e9e9e;">You sound neutral and balanced ⚖️</span>
+        {% elif emotion == "uncertain" %}
+            <span style="color:#ff9800;">The emotion is a bit unclear. Maybe try speaking a bit longer or more clearly 🎯</span>
+        {% else %}
+            <span style="color:#fff;">Thank you for sharing your voice! 🎤</span>
+        {% endif %}
+    </div>
+    
+    <!-- Transcript -->
+    <div class="transcript">
+        <strong>Transcript:</strong> {{ transcript|default("No transcript available") }}
+    </div>
+    
+    <!-- Audio Player -->
+    <audio controls style="width: 100%; margin: 1em 0;">
+        <source src="{{ audio_file }}" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Try Again Button -->
+    <form action="/">
+        <button type="submit" class="try-again">Try Again</button>
+    </form>
+    
+    <!-- Model Performance Metrics -->
+    <div class="metrics-section">
+        <h2 style="color:#ffe082; margin-bottom: 1em;">Model Performance</h2>
+        <div class="metrics-grid">
+            <div class="metric-item">
+                <div class="metric-value">{{ model_metrics.accuracy|default(0)|float }}%</div>
+                <div class="metric-label">Accuracy</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">{{ model_metrics.f1|default(0)|float }}%</div>
+                <div class="metric-label">F1 Score</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">{{ model_metrics.precision|default(0)|float }}%</div>
+                <div class="metric-label">Precision</div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-value">{{ model_metrics.recall|default(0)|float }}%</div>
+                <div class="metric-label">Recall</div>
+            </div>
+        </div>
+        
+        <!-- Additional Model Info -->
+        {% if model_metrics.feature_count %}
+        <div style="margin-top: 1em; color: #ccc; font-size: 0.9em;">
+            <strong>Features:</strong> {{ model_metrics.feature_count }} | 
+            <strong>Samples:</strong> {{ model_metrics.total_samples|default('N/A') }}
+        </div>
+        {% endif %}
+    </div>
+    
+    <!-- Feedback Form -->
+    <div class="feedback-form">
+        <h3 style="color: #ffe082; margin-bottom: 1em;">Help Improve Our Model</h3>
+        <form action="/feedback" method="post">
+            <input type="hidden" name="emotion" value="{{ emotion }}">
+            <input type="hidden" name="confidence" value="{{ confidence }}">
+            
+            <label for="user_feedback">Was this prediction accurate?</label>
+            <select name="user_feedback" id="user_feedback">
+                <option value="yes">Yes, very accurate</option>
+                <option value="somewhat">Somewhat accurate</option>
+                <option value="no">No, not accurate</option>
+            </select>
+            
+            <label for="custom_feedback">Your comments (optional):</label>
+            <textarea name="custom_feedback" id="custom_feedback" 
+                      placeholder="Tell us what you think about the prediction..."></textarea>
+            
+            <button type="submit">Send Feedback</button>
+        </form>
+    </div>
+    
+    <!-- Delete Data Button -->
+    <form action="/delete_audio" method="post" style="margin-top: 1em;">
+        <input type="hidden" name="audio_file" value="{{ audio_file }}">
+        <button type="submit" style="background: #ff7eb3;">Delete My Data</button>
+    </form>
+</div>
+
+<script>
+// Animate confidence bar on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const confidenceFill = document.querySelector('.confidence-fill');
+    if (confidenceFill) {
+        setTimeout(() => {
+            confidenceFill.style.width = '{{ confidence|default(0)|float }}%';
+        }, 500);
+    }
+});
+</script>
+</body>
+</html>

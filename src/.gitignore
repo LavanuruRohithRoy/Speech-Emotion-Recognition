@@ -1,0 +1,51 @@
+# ----------------------
+# Python
+# ----------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ----------------------
+# Virtual environment
+# ----------------------
+venv/
+.env/
+
+# ----------------------
+# ML / Models
+# ----------------------
+models/*.pkl
+models/*.joblib
+
+# ----------------------
+# Temporary audio files
+# ----------------------
+temp/
+src/static/recordings/*.wav
+src/static/recordings/*.webm
+uploads/
+
+
+# ----------------------
+# Dataset (DO NOT PUSH)
+# ----------------------
+dataset/
+data/
+
+# ----------------------
+# Logs
+# ----------------------
+*.log
+
+# ----------------------
+# OS files
+# ----------------------
+.DS_Store
+Thumbs.db
+
+# ----------------------
+# IDE
+# ----------------------
+.vscode/
+.idea/

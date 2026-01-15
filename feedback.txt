@@ -1,0 +1,4 @@
+fearful,33,yes, Pretty ok but the transcript isn't that accurate
+
+angry,26,yes, Yes that's right in the prediction but the dataset audio's transcripts are pretty wrong to consider
+

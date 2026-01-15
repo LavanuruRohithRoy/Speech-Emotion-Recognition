@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #1e1e2f; /* Dark background for better contrast */
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#backgroundCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Place it behind all other elements */
+  background: transparent; /* Ensure the canvas is transparent */
+}
+
+.container-wrapper {
+  display: flex;
+  align-items: center; /* Vertically center the content */
+  justify-content: flex-end; /* Align the container to the right */
+  width: 70%;
+  max-width: 1200px; /* Limit the width for better design */
+  height: 30vh; /* Adjust height to center vertically */
+  margin: 0 auto;
+}
+
+.container {
+  width: 80%; /* Adjust width as needed */
+  padding: 50px;
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+.image-container img {
+  max-width: 120%; /* Allow the image to take up more space */
+  height: auto;
+  border-radius: 20px; /* Add rounded corners */
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5); /* Add a stronger shadow for emphasis */
+}
+
+h1, h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.9rem;
+    margin-bottom: 20px;
+    color: #66bdff;
+}
+
+p {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #638299;
+  animation: fadeIn 2s ease-in-out, colorChange 4s infinite alternate;
+}
+
+/* Keyframe for fade-in effect */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+/* Keyframe for color-changing effect */
+@keyframes colorChange {
+  0% {
+      color: #2a168c;
+  }
+  50% {
+      color: #3b8f0d;
+  }
+  100% {
+      color: #9508b8;
+  }
+}
+
+input[type="file"] {
+    font-size: 15px;
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.button {
+    background-color: #00b4d8;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+    border: none;
+    font-size: 16px;
+}
+
+.button:hover {
+    background-color: #0077b6;
+}
+
+.emotion-output {
+    font-size: 1.6rem;
+    padding: 15px;
+    color: #f4f4f4;
+    margin-bottom: 20px;
+}
